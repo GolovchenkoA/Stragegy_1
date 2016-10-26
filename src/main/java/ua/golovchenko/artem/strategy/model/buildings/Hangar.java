@@ -9,7 +9,7 @@ public class Hangar extends Military {
 
     public Hangar() {
         super.setType(BuildingsType.MILITARY);
-        super.setCost(20);
+        super.setCost(20L);
         super.setName("Hangar");
         super.setMaxTraningUnits(1);
         super.setSpeedOfConstruction_minutes(3);

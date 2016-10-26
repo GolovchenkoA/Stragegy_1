@@ -11,7 +11,7 @@ public class House extends Civil {
 
     public House(){
         super.setType(BuildingsType.CIVIL);
-        super.setCost(5);
+        super.setCost(5L);
         super.setName("House");
         super.setMaxUnitsInBuilding(5);
         super.setSpeedOfConstruction_minutes(1);

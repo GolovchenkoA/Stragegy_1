@@ -21,7 +21,7 @@ public class GoldMine extends Industrial {
     }
 
     @Override
-    public void setCost(int cost) {
+    public void setCost(Long cost) {
         super.setCost(cost);
     }
 

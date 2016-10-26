@@ -9,7 +9,6 @@ import ua.golovchenko.artem.strategy.model.GameDisplay;
 import ua.golovchenko.artem.strategy.model.GameDisplayMain;
 import ua.golovchenko.artem.strategy.model.User;
 import ua.golovchenko.artem.strategy.model.menu.*;
-import ua.golovchenko.artem.strategy.model.resources.Gold;
 import ua.golovchenko.artem.strategy.model.resources.ResourceManager;
 
 import java.io.BufferedReader;
@@ -23,19 +22,22 @@ import java.util.regex.Pattern;
 
 public class Main {
 
+    public static boolean theGameContinues = true;
+
     public static void main(String[] args) {
 
         Console console = null;
         User user = null;
         UserDAO userDAO = new UserDAOImpl();
         CastleDAO castleDAO = new CastleDAOImpl();;
-        Castle castle = null;
+        Castle castle = Castle.getInstance();
 
         // Значения введенные пользователем при создании пользователя и замка
         String name;
         String login;
         String password;
         String castle_name;
+
 
         System.out.println("Game: Strategy");
 
@@ -101,12 +103,7 @@ public class Main {
                         System.out.format("Ваши данные пользователя с ID: %d  , Login: %s , Name: %s . Имя замка: %s \n",
                                 user.getId(), user.getLogin(), user.getName(), castle.getName());
 
-                    //Задержка перед выводом следующего экрана
-                    try {
-                        Thread.currentThread().wait(3000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+
                 }
 
 
@@ -155,8 +152,8 @@ public class Main {
             GameMenu gameMenu = new GameMenuImpl(mainMenu);
 
             // Ресурсы игрока
-            Gold gold = new Gold();
-            castle.addGold(gold.getAmount());
+            //Gold gold = new Gold();
+            //castle.addGold(gold.getAmount());
 
             CastleInfo castleInfoPanel = new CastleInfoMain(castle.getGold()); //Панель с информацией
             GameDisplay gameDisplayWindows = new GameDisplayMain(castleInfoPanel,gameMenu);
@@ -169,18 +166,6 @@ public class Main {
 
                   Thread resource_manager_thread = new ResourceManager(castle);
                    //resource_manager_thread.start();
-
-
-                    System.out.println("Ждем начисления золота: ");
-                    System.out.println("Сейчас:" + castle.getTotalGold());
-                    try {
-                        Thread.sleep(10000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    System.out.println("Сейчас:" + castle.getTotalGold());
-
-
                 //-----------------------------------------------------------
 
 
@@ -218,13 +203,9 @@ public class Main {
 
             }while (!(gameMenu.getLast_command() instanceof ExitMenuItem));
 
-
-
             // Завершение работы фоновых потоков
-            resource_manager_thread.interrupt();
-
-
-
+            //resource_manager_thread.interrupt();
+            Main.theGameContinues = false; // Все фоновые потоки завершаются
 
 
         }catch (SQLException e){

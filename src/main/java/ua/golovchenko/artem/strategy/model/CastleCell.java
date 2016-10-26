@@ -1,6 +1,6 @@
 package ua.golovchenko.artem.strategy.model;
 
-import ua.golovchenko.artem.strategy.model.buildings.BuildingAbstract;
+import ua.golovchenko.artem.strategy.model.buildings.Building;
 
 /**
  * Created by art on 14.10.2016.
@@ -9,7 +9,9 @@ public class CastleCell {
 
     private int id;
     private boolean isFree = true;
-    private BuildingAbstract buildingOnCell;
+    private Building buildingOnCell;
+    private boolean isBuildingUnderConstruction = false;
+
     //private Map<Integer,Building> buildingOnCell; //Integer - Cell id, Building - Building
     //private List<Building> allAvailableBuildings = new
 
@@ -35,21 +37,28 @@ public class CastleCell {
         isFree = i;
     }
 
-    public BuildingAbstract getBuildingOnCell() {
+    public Building getBuildingOnCell() {
         return buildingOnCell;
     }
 
-    public void getAvailableBuildings(){
-
+    public boolean isBuildingUnderConstruction() {
+        return isBuildingUnderConstruction;
     }
 
-    public void setBuildingOnCell(BuildingAbstract buildingOnCell) {
+    public void setBuildingUnderConstruction(boolean buildingUnderConstruction) {
+        isBuildingUnderConstruction = buildingUnderConstruction;
+    }
+
+    public void setBuildingOnCell(Building buildingOnCell) {
         this.buildingOnCell = buildingOnCell;
     }
 
     @Override
     public String toString() {
-        String cell= "ID: " + getId() + "; Поле свободное: " + isFree() + "; Здание на этом поле: " + getBuildingOnCell();
+        String cell= "ID: " + getId() +
+                " Поле свободное:" + isFree() +
+                " Здание строитсяЖ " + isBuildingUnderConstruction +
+                " Здание на этом поле: " + getBuildingOnCell();
 
 
         return cell;

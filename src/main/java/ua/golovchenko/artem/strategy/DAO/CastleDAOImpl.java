@@ -11,12 +11,13 @@ import java.sql.*;
  */
 public class CastleDAOImpl implements CastleDAO {
 
-
+    Castle current_castle = Castle.getInstance();
 
     @Override
     public Castle get(Long id) {
 
-        Castle current_castle = new Castle();
+        //Castle current_castle = new Castle();
+
 
         try(Connection con = UtilityConnection.createConnection()){
             if(con != null){
@@ -39,7 +40,7 @@ public class CastleDAOImpl implements CastleDAO {
     @Override
     public Castle get(User user) {
         //System.out.println("Debug: Castle.get(User). UserId:" + user.getId()); //debug
-        Castle current_castle = new Castle();
+        //Castle current_castle = new Castle();
 
         try(Connection con = UtilityConnection.createConnection()){
             if(con != null){
@@ -95,7 +96,8 @@ public class CastleDAOImpl implements CastleDAO {
 
 
     private Castle getCastle(ResultSet resultSet) throws SQLException {
-        Castle castle = new Castle();
+        //Castle castle = new Castle();
+        Castle castle = Castle.getInstance();
 
         castle.setId(resultSet.getLong("id"));
         castle.setName(resultSet.getString("name"));

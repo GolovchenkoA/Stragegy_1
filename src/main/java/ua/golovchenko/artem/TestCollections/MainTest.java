@@ -5,32 +5,20 @@ package ua.golovchenko.artem.TestCollections;
  */
 public class MainTest extends Thread{
 
-        public MainTest(){
-            start();
-        }
-        public void run() {
-            System.out.println("Дочерний старт");
-
-            try {
-                this.sleep(5000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            System.out.println("Дочерний стоп");
-        }
-            //private static Map<String,Building> allBuildings = new TreeMap<>(); // Небезопасно ставить ? но с ограничением по extend Building не получилось
 
     public static void main(String[] args) throws InterruptedException {
 
-        System.out.println("Основной поток");
+        Runnable task = () -> {
+            String threadName = Thread.currentThread().getName();
+            System.out.println("Hello " + threadName);
+        };
 
-        MainTest mainTest = new MainTest();
+        //task.run();
 
-        mainTest.join();
-        //mainTest.run();
+        Thread thread = new Thread(task);
+        thread.start();
 
-        System.out.println("Основной конец");
-
+        System.out.println("Done!");
 
 
   /*    List<Class<?>> buildings_classes = ClassFinder.find("ua.golovchenko.artem.strategy.model.buildings");

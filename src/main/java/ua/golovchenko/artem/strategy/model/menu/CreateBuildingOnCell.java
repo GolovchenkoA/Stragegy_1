@@ -3,6 +3,8 @@ package ua.golovchenko.artem.strategy.model.menu;
 import ua.golovchenko.artem.strategy.model.Castle;
 import ua.golovchenko.artem.strategy.model.CastleCell;
 import ua.golovchenko.artem.strategy.model.buildings.Building;
+import ua.golovchenko.artem.strategy.model.buildings.BuildingConstructor;
+import ua.golovchenko.artem.strategy.model.buildings.BuildingConstructorReal;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -23,6 +25,7 @@ public class CreateBuildingOnCell extends MenuItem implements Command{
     private CastleCell castleCell;
     private List<Building> buildings = new ArrayList<Building>(Castle.getAvailableBuildings());
     private Building building;
+    BuildingConstructor buildingConstructor = BuildingConstructorReal.getInstance();
 
 
     public CreateBuildingOnCell(String name, String description) {
@@ -62,7 +65,9 @@ public class CreateBuildingOnCell extends MenuItem implements Command{
 
             castleCell = castleCells.get(Integer.parseInt(input_cell_number));
             building = buildings.get(Integer.parseInt(input_building_number));
+            boolean result = buildingConstructor.beginConstruction(building,castleCell);
 
+            System.out.format("Начато строительство здания: %s на клетке: %d . Подтверждение %b \n", building.getName(),castleCell.getId(), result);
 
         }
 

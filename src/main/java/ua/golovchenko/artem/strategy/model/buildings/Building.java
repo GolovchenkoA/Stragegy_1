@@ -16,9 +16,9 @@ public interface Building {
 
     public void setType(BuildingAbstract.BuildingsType type);
 
-    public int getCost();
+    public Long getCost();
 
-    public void setCost(int cost);
+    public void setCost(Long cost);
 
     public int getSpeedOfConstruction_minutes();
 

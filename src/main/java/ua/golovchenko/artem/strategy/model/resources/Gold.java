@@ -23,27 +23,27 @@ public class Gold extends ResourceAbstract implements Resource {
     }
 
     @Override
-    public Long getAmount() {
+    public synchronized Long getAmount() {
         return amount;
     }
 
     @Override
-    public void increace() {
+    public synchronized void increace() {
         amount++;
     }
 
     @Override
-    public void increace(Long amount) {
+    public synchronized void increace(Long amount) {
         super.amount += amount;
     }
 
     @Override
-    public void decreace() {
+    public synchronized void decreace() {
         amount--;
     }
 
     @Override
-    public void decreace(Long amount) {
+    public synchronized void decreace(Long amount) {
         super.amount -= amount;
     }
 
@@ -81,7 +81,7 @@ public class Gold extends ResourceAbstract implements Resource {
     }
 
     @Override
-    public void setAmount(Long amount) {
+    public synchronized void setAmount(Long amount) {
         super.setAmount(amount);
     }
 }

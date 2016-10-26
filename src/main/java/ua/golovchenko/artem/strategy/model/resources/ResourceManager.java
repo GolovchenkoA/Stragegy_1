@@ -1,5 +1,6 @@
 package ua.golovchenko.artem.strategy.model.resources;
 
+import ua.golovchenko.artem.strategy.Main;
 import ua.golovchenko.artem.strategy.model.Castle;
 
 /**
@@ -26,9 +27,9 @@ public class ResourceManager extends Thread {
                 System.out.println("Ошибка в потоке Resource Manager");
             }
             castle.addGold(castle.getTotalGoldPerMinute());
-        }while (true);
+        }while (Main.theGameContinues);
 
-        //System.out.println("Остановился поток: " + this.getName());
+        System.out.println("Остановился поток: " + this.getName());
 
     }
 }

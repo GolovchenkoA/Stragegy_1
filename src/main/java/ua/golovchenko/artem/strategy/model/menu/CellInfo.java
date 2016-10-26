@@ -40,6 +40,12 @@ public class CellInfo extends MenuItem implements Command {
     public void execute() {
 
         System.out.println("Введите номер ячейки: ");
+
+/*        // Вывести информацию о всех ячейках
+        for (CastleCell cell : Castle.getCells()){
+            System.out.println(cell.toString());
+        }*/
+
         selection = console_input.next();
         numberMatcher = p.matcher(selection);
 

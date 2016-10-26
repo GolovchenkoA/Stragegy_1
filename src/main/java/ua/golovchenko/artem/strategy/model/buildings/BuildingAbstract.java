@@ -19,7 +19,7 @@ public abstract class BuildingAbstract implements Building{
     private Long id;
     private String name;
     private BuildingsType type; // тип здания
-    private int cost; // цена постройки
+    private Long cost; // цена постройки
     private int speedOfConstruction_minutes; // время постройки в минутах
     private boolean  buildingConstructed = false;
     private int maxUnitsInBuilding;
@@ -29,7 +29,7 @@ public abstract class BuildingAbstract implements Building{
 
     public BuildingAbstract() {};
 
-    public BuildingAbstract(String name, BuildingsType type, int cost, int speedOfConstruction_minutes, boolean buildingConstructed, int maxUnitsInBuilding, int totalUnitsinBuilding, List<Unit> units) {
+    public BuildingAbstract(String name, BuildingsType type, Long cost, int speedOfConstruction_minutes, boolean buildingConstructed, int maxUnitsInBuilding, int totalUnitsinBuilding, List<Unit> units) {
         this.name = name;
         this.type = type;
         this.cost = cost;
@@ -65,11 +65,11 @@ public abstract class BuildingAbstract implements Building{
         this.type = type;
     }
 
-    public int getCost() {
+    public Long getCost() {
         return cost;
     }
 
-    public void setCost(int cost) {
+    public void setCost(Long cost) {
         this.cost = cost;
     }
 

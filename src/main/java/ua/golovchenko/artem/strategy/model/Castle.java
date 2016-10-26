@@ -15,7 +15,7 @@ import java.util.Set;
  */
 public class Castle {
 
-
+    private static Castle instance;
     private static GameField gameField = new GameFieldReal();
     private static final Long DEFAULT_GOLD_PER_MINUTE = 10L;
 
@@ -79,13 +79,19 @@ public class Castle {
 
 
 
-    public Castle(){};
+    private Castle(){};
 
-    public Castle(String name, Long userId) {
+/*    public Castle(String name, Long userId) {
         this.name = name;
         this.userId = userId;
-    }
+    }*/
 
+    public static Castle getInstance(){
+        if(instance == null)
+            instance = new Castle();
+
+        return instance;
+    }
 
     public Long getId() {
         return id;
@@ -123,11 +129,11 @@ public class Castle {
         goldInCastle.setAmount(totalGold);
     }
 
-    public synchronized void  addGold(Long gold){
+    public void  addGold(Long gold){
         goldInCastle.increace(gold);
     }
 
-    public synchronized void reduceGold(Long gold){
+    public void reduceGold(Long gold){
         goldInCastle.decreace(gold);
     }
 
