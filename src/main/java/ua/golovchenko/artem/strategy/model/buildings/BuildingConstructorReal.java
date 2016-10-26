@@ -7,7 +7,7 @@ import ua.golovchenko.artem.strategy.model.Castle;
  */
 public class BuildingConstructorReal extends BuildingConstructorAbstract implements BuildingConstructor {
     private Castle castle;
-    pri
+
 
 
 }

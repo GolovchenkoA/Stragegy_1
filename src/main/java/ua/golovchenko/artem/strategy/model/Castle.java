@@ -3,9 +3,12 @@ package ua.golovchenko.artem.strategy.model;
 import ua.golovchenko.artem.strategy.model.buildings.Building;
 import ua.golovchenko.artem.strategy.model.buildings.House;
 import ua.golovchenko.artem.strategy.model.buildings.RealBuilding;
+import ua.golovchenko.artem.strategy.model.resources.Gold;
 import ua.golovchenko.artem.util.ClassFinder;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by art on 14.10.2016.
@@ -14,7 +17,7 @@ public class Castle {
 
 
     private static GameField gameField = new GameFieldReal();
-    private static final int DEFAULT_GOLD_PER_MINUTE = 10;
+    private static final Long DEFAULT_GOLD_PER_MINUTE = 10L;
 
     // Список задний доступных для постройки
     private static Set<Building> availableBuildings = new HashSet<>(); // Небезопасно ставить ? но с ограничением по extend Building не получилось
@@ -71,13 +74,17 @@ public class Castle {
     private Long id;
     private String name;
     private Long userId;
-    private int totalGoldPerMinute; // показатель будет повышать постройка дополнительных зданий
-    private int totalGold; // Всего золота у пользователя, которое можно использовать
+    private Gold goldInCastle  = new Gold();// Всего золота у пользователя, которое можно использовать
     private int Humans; //количество людей
 
 
 
+    public Castle(){};
 
+    public Castle(String name, Long userId) {
+        this.name = name;
+        this.userId = userId;
+    }
 
 
     public Long getId() {
@@ -104,28 +111,28 @@ public class Castle {
         this.userId = userId;
     }
 
-    public int getTotalGoldPerMinute() {
-        return totalGoldPerMinute;
+    public Long getTotalGoldPerMinute() {
+        return DEFAULT_GOLD_PER_MINUTE;
     }
 
-    public void setTotalGoldPerMinute(int totalGoldPerMinute) {
-        this.totalGoldPerMinute = DEFAULT_GOLD_PER_MINUTE;
+    public Long getTotalGold() {
+        return goldInCastle.getAmount();
     }
 
-    public int getTotalGold() {
-        return totalGold;
+    public void setTotalGold(Long totalGold) {
+        goldInCastle.setAmount(totalGold);
     }
 
-    public void setTotalGold(int totalGold) {
-        this.totalGold = totalGold;
+    public synchronized void  addGold(Long gold){
+        goldInCastle.increace(gold);
     }
 
-    public void addGold(int gold){
-        this.totalGold +=gold;
+    public synchronized void reduceGold(Long gold){
+        goldInCastle.decreace(gold);
     }
 
-    public void reduceGold(int gold){
-        this.totalGold -= gold;
+    public Gold getGold(){
+        return goldInCastle;
     }
 
     public GameField getGameField(){
@@ -163,11 +170,6 @@ public class Castle {
     }
 
 
-    public Castle(){};
 
-    public Castle(String name, Long userId) {
-        this.name = name;
-        this.userId = userId;
-    }
 
 }

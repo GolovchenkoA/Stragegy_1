@@ -13,4 +13,5 @@ public interface Resource {
     public void setResource_growth_per_hour(Long amount);
     public Long getResource_growth_per_hour();
     public ResourceAbstract.ResourcesType getResourceType();
+    public void setAmount(Long amount);
 }

@@ -6,12 +6,10 @@ package ua.golovchenko.artem.strategy.model.resources;
  */
 public class Gold extends ResourceAbstract implements Resource {
 
-
     private String name =  "Gold";
 
     public Gold(){
         resourceType = ResourcesType.GOLD;
-        amount = 100L;
     }
 
     public Gold(Long gold_amount){
@@ -80,5 +78,10 @@ public class Gold extends ResourceAbstract implements Resource {
         for(ResourceObserver o : resourceObservers){
             o.update(this,this.getResourceType());
         }
+    }
+
+    @Override
+    public void setAmount(Long amount) {
+        super.setAmount(amount);
     }
 }

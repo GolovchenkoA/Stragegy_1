@@ -1,38 +1,36 @@
 package ua.golovchenko.artem.TestCollections;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
-
 /**
  * Created by art on 17.10.2016.
  */
-public class MainTest {
+public class MainTest extends Thread{
 
+        public MainTest(){
+            start();
+        }
+        public void run() {
+            System.out.println("Дочерний старт");
 
+            try {
+                this.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("Дочерний стоп");
+        }
+            //private static Map<String,Building> allBuildings = new TreeMap<>(); // Небезопасно ставить ? но с ограничением по extend Building не получилось
 
-    //private static Map<String,Building> allBuildings = new TreeMap<>(); // Небезопасно ставить ? но с ограничением по extend Building не получилось
+    public static void main(String[] args) throws InterruptedException {
 
-    public static void main(String[] args) {
+        System.out.println("Основной поток");
 
-        Set<Object> set = new HashSet<>();
-        List<Object> l = new LinkedList<>();
+        MainTest mainTest = new MainTest();
 
-        set.add(1);
-        set.add("dfsdf");
-        set.add(2);
+        mainTest.join();
+        //mainTest.run();
 
-        set.size();
+        System.out.println("Основной конец");
 
-        System.out.println(set.size());
-
-
-        l.add(1);
-        l.add(2);
-        l.add(1);
-
-        System.out.println(l.size());
 
 
   /*    List<Class<?>> buildings_classes = ClassFinder.find("ua.golovchenko.artem.strategy.model.buildings");

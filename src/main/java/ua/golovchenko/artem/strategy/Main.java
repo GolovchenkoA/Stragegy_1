@@ -10,6 +10,7 @@ import ua.golovchenko.artem.strategy.model.GameDisplayMain;
 import ua.golovchenko.artem.strategy.model.User;
 import ua.golovchenko.artem.strategy.model.menu.*;
 import ua.golovchenko.artem.strategy.model.resources.Gold;
+import ua.golovchenko.artem.strategy.model.resources.ResourceManager;
 
 import java.io.BufferedReader;
 import java.io.Console;
@@ -132,14 +133,6 @@ public class Main {
             }
 
 
-            { // Запуск процессов по управлению ресурсами замка
-
-                Thread castle_resource_thread = new Thread();
-                castle_resource_thread.setName("Управление ресурсами (золото и  тд)");
-            }
-
-
-
 
 
                     // Меню игрока
@@ -163,9 +156,33 @@ public class Main {
 
             // Ресурсы игрока
             Gold gold = new Gold();
+            castle.addGold(gold.getAmount());
 
-            CastleInfo castleInfoPanel = new CastleInfoMain(gold); //Панель с информацией
+            CastleInfo castleInfoPanel = new CastleInfoMain(castle.getGold()); //Панель с информацией
             GameDisplay gameDisplayWindows = new GameDisplayMain(castleInfoPanel,gameMenu);
+
+
+
+
+
+             // -----------------Запуск процессов по управлению ресурсами замка
+
+                  Thread resource_manager_thread = new ResourceManager(castle);
+                   //resource_manager_thread.start();
+
+
+                    System.out.println("Ждем начисления золота: ");
+                    System.out.println("Сейчас:" + castle.getTotalGold());
+                    try {
+                        Thread.sleep(10000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("Сейчас:" + castle.getTotalGold());
+
+
+                //-----------------------------------------------------------
+
 
 
 
@@ -202,13 +219,19 @@ public class Main {
             }while (!(gameMenu.getLast_command() instanceof ExitMenuItem));
 
 
+
+            // Завершение работы фоновых потоков
+            resource_manager_thread.interrupt();
+
+
+
+
+
         }catch (SQLException e){
             e.printStackTrace();
         }catch (IOException e) {
             e.printStackTrace();
         }
-
-
 
     }
 }

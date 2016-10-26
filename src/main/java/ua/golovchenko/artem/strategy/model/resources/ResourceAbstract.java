@@ -9,7 +9,7 @@ import java.util.List;
 public abstract class ResourceAbstract implements Resource,ResourcesObservable {
 
     public String name;
-    public Long amount;
+    public Long amount = 0L;
     Long resource_growth_per_hour;
     protected ResourcesType resourceType;
     List<ResourceObserver> resourceObservers = new LinkedList<>();
@@ -22,5 +22,7 @@ public abstract class ResourceAbstract implements Resource,ResourcesObservable {
 java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());*/
     //private Date last_resource_growth;
 
-
+    public void setAmount(Long amount){
+        this.amount = amount;
+    }
 }
