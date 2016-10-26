@@ -1,6 +1,6 @@
 package ua.golovchenko.artem.strategy.model;
 
-import ua.golovchenko.artem.strategy.model.buildings.Building;
+import ua.golovchenko.artem.strategy.model.buildings.BuildingAbstract;
 
 /**
  * Created by art on 14.10.2016.
@@ -9,7 +9,7 @@ public class CastleCell {
 
     private int id;
     private boolean isFree = true;
-    private Building buildingOnCell;
+    private BuildingAbstract buildingOnCell;
     //private Map<Integer,Building> buildingOnCell; //Integer - Cell id, Building - Building
     //private List<Building> allAvailableBuildings = new
 
@@ -35,7 +35,7 @@ public class CastleCell {
         isFree = i;
     }
 
-    public Building getBuildingOnCell() {
+    public BuildingAbstract getBuildingOnCell() {
         return buildingOnCell;
     }
 
@@ -43,7 +43,7 @@ public class CastleCell {
 
     }
 
-    public void setBuildingOnCell(Building buildingOnCell) {
+    public void setBuildingOnCell(BuildingAbstract buildingOnCell) {
         this.buildingOnCell = buildingOnCell;
     }
 

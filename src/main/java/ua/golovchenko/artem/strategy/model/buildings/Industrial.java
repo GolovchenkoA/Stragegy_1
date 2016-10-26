@@ -5,5 +5,5 @@ package ua.golovchenko.artem.strategy.model.buildings;
  *
  * Описание класса: Класс промышленных зданий. Зданий, которые что-то добывают или производят
  */
-public abstract class Industrial extends Building {
+public abstract class Industrial extends BuildingAbstract {
 }

@@ -3,6 +3,8 @@ package ua.golovchenko.artem.strategy.model.buildings;
 /**
  * Created by art on 15.10.2016.
  */
+
+@RealBuilding
 public class GoldMine extends Industrial {
 
     public GoldMine() {

@@ -1,84 +1,30 @@
 package ua.golovchenko.artem.strategy.model.buildings;
 
 /**
- * Created by art on 14.10.2016.
- * Класс здания. с минимальнымы требованиями
+ * Created by art on 26.10.2016.
  */
-public abstract class Building {
+public interface Building {
 
-    public enum BuildingsType {
+    public Long getId();
 
-        MILITARY,DECORATION,CIVIL,INDUSTRIAL;
-    }
+    public void setId(Long id);
 
-    private Long id;
-    private String name;
-    private BuildingsType type; // тип здания
-    private int cost; // цена постройки
-    private int speedOfConstruction_minutes; // время постройки в минутах
-    private boolean  buildingConstructed = false;
+    public String getName();
 
+    public void setName(String name);
+    public BuildingAbstract.BuildingsType getType();
 
+    public void setType(BuildingAbstract.BuildingsType type);
 
-    public Building() {};
+    public int getCost();
 
-    public Long getId() {
-        return id;
-    }
+    public void setCost(int cost);
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    public int getSpeedOfConstruction_minutes();
 
-    public String getName() {
-        return name;
-    }
+    public void setSpeedOfConstruction_minutes(int speedOfConstruction_minutes) ;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public boolean isBuildingConstructed();
 
-    public BuildingsType getType() {
-        return type;
-    }
-
-    public void setType(BuildingsType type) {
-        this.type = type;
-    }
-
-    public int getCost() {
-        return cost;
-    }
-
-    public void setCost(int cost) {
-        this.cost = cost;
-    }
-
-    public int getSpeedOfConstruction_minutes() {
-        return speedOfConstruction_minutes;
-    }
-
-    public void setSpeedOfConstruction_minutes(int speedOfConstruction_minutes) {
-        this.speedOfConstruction_minutes = speedOfConstruction_minutes;
-    }
-
-    public boolean isBuildingConstructed() {
-        return buildingConstructed;
-    }
-
-    public void setBuildingConstructed(boolean buildingConstructed) {
-        this.buildingConstructed = buildingConstructed;
-    }
-
-
-    @Override
-    public String toString() {
-        return "id=" + id +
-                ", name='" + name + '\'' +
-                ", type=" + type +
-                ", cost=" + cost +
-                ", speedOfConstruction_minutes=" + speedOfConstruction_minutes +
-                ", buildingConstructed=" + buildingConstructed +
-                '}';
-    }
+    public void setBuildingConstructed(boolean buildingConstructed);
 }

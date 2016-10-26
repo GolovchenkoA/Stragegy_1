@@ -26,13 +26,13 @@ public class Menu{
     }
 
     public void getCastleBuildings(){
-        System.out.format("Свободных клеток в замке: %d \n \n",castle.getFreeCellsCount());
+        System.out.format("Свободных клеток в замке: %d \n \n",castle.getGameField().getFreeCellsCount());
     }
 
     public void getCastleCell(int i){
 
         CastleCell cell = new CastleCell();
-        cell = Castle.cells.get(i);
+        cell = Castle.getCell(i);
 
 
 

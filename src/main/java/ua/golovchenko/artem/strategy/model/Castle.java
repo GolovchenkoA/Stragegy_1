@@ -2,36 +2,35 @@ package ua.golovchenko.artem.strategy.model;
 
 import ua.golovchenko.artem.strategy.model.buildings.Building;
 import ua.golovchenko.artem.strategy.model.buildings.House;
+import ua.golovchenko.artem.strategy.model.buildings.RealBuilding;
 import ua.golovchenko.artem.util.ClassFinder;
 
-import java.lang.reflect.Modifier;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Created by art on 14.10.2016.
  */
 public class Castle {
 
-    private static final int TOTAL_CASTLE_CELLS = 25-1;
+    private static GameField gameField = new GameFieldReal();
     private static final int DEFAULT_GOLD_PER_MINUTE = 10;
-    public static final List<CastleCell> cells = new ArrayList<CastleCell>(TOTAL_CASTLE_CELLS);
     private static Map<String,Building> allBuildings = new TreeMap<>(); // Небезопасно ставить ? но с ограничением по extend Building не получилось
 
-    static {
-        // Инициализация клеток поля
-        for(int i = 0; i <= TOTAL_CASTLE_CELLS; i++){
-            cells.add(new CastleCell(i)) ;
-        }
+   static {
 
         // ИНИЦИАЛИЗАЦИЯ МАССИВА ДОСТУПНЫХ ЗДАНИЙ
         // получение списка всех классов зданий
         List<Class<?>> buildings_classes = ClassFinder.find("ua.golovchenko.artem.strategy.model.buildings");
 
         for(Class building : buildings_classes) {
-            if (!Modifier.isAbstract(building.getModifiers()) && !building.getSimpleName().equals("BuildingsType")) { // если класс не абстрактный
+
+            //if (!Modifier.isAbstract(building.getModifiers()) && !building.getSimpleName().equals("BuildingsType")) { // если класс не абстрактный
+            if (building.isAnnotationPresent(RealBuilding.class)){
                 Building b = null;
                 try {
-                    System.out.println(building.getSimpleName());
+                    //System.out.println(building.getSimpleName());
                     b = (Building) building.newInstance(); // создаем объект класса
                 } catch (InstantiationException e) {
                     e.printStackTrace();
@@ -41,10 +40,7 @@ public class Castle {
                 allBuildings.put(building.getSimpleName(), b); // добавляем объект класса в массив
             }
         }
-
-
     }
-
 
 
     private Long id;
@@ -52,10 +48,7 @@ public class Castle {
     private Long userId;
     private int totalGoldPerMinute; // показатель будет повышать постройка дополнительных зданий
     private int totalGold; // Всего золота у пользователя, которое можно использовать
-    private int freeCellsCount = 0;
     private int Humans; //количество людей
-
-
 
 
     public Castle(){};
@@ -108,26 +101,17 @@ public class Castle {
     public void addGold(int gold){
         this.totalGold +=gold;
     }
+
     public void reduceGold(int gold){
         this.totalGold -= gold;
     }
 
-    public int getFreeCellsCount() {
-
-        updateFreeCellsCount();
-        return freeCellsCount;
+    public GameField getGameField(){
+        return gameField;
     }
 
-    public void updateFreeCellsCount() {
-
-        int freeCells = 0;
-
-        for(CastleCell cell : cells) {
-            if (cell.isFree()) {
-                freeCells++;
-            }
-        }
-        this.freeCellsCount = freeCells;
+    public void setGameField(GameField gameField){
+        this.gameField = gameField;
     }
 
     public void getBuildings(){
@@ -144,7 +128,7 @@ public class Castle {
 
         int totalHumansOnCastle = 0;
 
-        for(CastleCell castleCell : cells){
+        for(CastleCell castleCell : gameField.getCells()){
             if(castleCell.getBuildingOnCell().getClass().equals(House.class)){
                 totalHumansOnCastle += ((House) castleCell.getBuildingOnCell()).getLivesPeople();
             }
@@ -168,4 +152,9 @@ public class Castle {
 
         }
     }
+
+    public static CastleCell getCell(int i){
+        return gameField.getCell(i);
+    }
+
 }

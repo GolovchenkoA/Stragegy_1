@@ -1,5 +1,7 @@
 package ua.golovchenko.artem.strategy.model;
 
+import ua.golovchenko.artem.strategy.model.Units.Gamer;
+
 import java.io.Serializable;
 
 /**
@@ -12,6 +14,7 @@ public class User implements Serializable {
     private String login;
     private String password;
     private Long CastleId;
+    private Gamer gamer;
 
 
     public User(){};
@@ -60,6 +63,14 @@ public class User implements Serializable {
 
     public void setCastleId(Long castleId) {
         CastleId = castleId;
+    }
+
+    public Gamer getGamer() {
+        return gamer;
+    }
+
+    public void setGamer(Gamer gamer) {
+        this.gamer = gamer;
     }
 
     @Override
