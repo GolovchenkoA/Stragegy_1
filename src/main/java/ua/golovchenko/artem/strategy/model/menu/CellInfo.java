@@ -11,15 +11,22 @@ import java.util.regex.Pattern;
  */
 public class CellInfo extends MenuItem implements Command {
     private CastleCell castleCell;
-    private Scanner sc = new Scanner(System.in);
+    //private Scanner sc = new Scanner(System.in);
     //private Command menuItemCommand;
+
+    // Необходимо для проверки значений, которые ввел игрок
+    Scanner console_input = new Scanner(System.in);
+    String selection;
+    Pattern p = Pattern.compile("^\\d+$"); // Только целые числа
+    Matcher numberMatcher;
+
 
 
     public CellInfo(String name, String description) {
         super(name, description);
     }
 
-    public CastleCell getCastleCell() {
+/*    public CastleCell getCastleCell() {
         return castleCell;
     }
 
@@ -27,24 +34,16 @@ public class CellInfo extends MenuItem implements Command {
         this.castleCell = castleCell;
     }
 
-
-    private void setCurrentCastleCell(int i){
-
-    }
+*/
 
     @Override
     public void execute() {
-
-        // Необходимо для проверки значений, которые ввел игрок
-        Scanner console_input = new Scanner(System.in);
-        String selection;
-        Pattern p = Pattern.compile("^\\d+$"); // Только целые числа
-        Matcher numberMatcher;
 
         System.out.println("Введите номер ячейки: ");
         selection = console_input.next();
         numberMatcher = p.matcher(selection);
 
+        // Обработка информации которую ввел игрок. Информация о якейке
         if (numberMatcher.matches() && GameFieldReal.TOTAL_CASTLE_CELLS >= Integer.parseInt(selection) - 1){
             castleCell = Castle.getCell(Integer.parseInt(selection)-1);
             System.out.println(castleCell.toString());
@@ -52,8 +51,6 @@ public class CellInfo extends MenuItem implements Command {
             int total_cells = GameFieldReal.TOTAL_CASTLE_CELLS + 1;
             System.out.println("Введите номер ячейки с 1 по " + total_cells);
         }
-
-
 
     }
 }

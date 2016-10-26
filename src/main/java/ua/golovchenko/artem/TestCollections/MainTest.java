@@ -1,5 +1,10 @@
 package ua.golovchenko.artem.TestCollections;
 
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+
 /**
  * Created by art on 17.10.2016.
  */
@@ -11,15 +16,23 @@ public class MainTest {
 
     public static void main(String[] args) {
 
-        ClassA classA = new ClassA();
-        ClassB classB = new ClassB();
+        Set<Object> set = new HashSet<>();
+        List<Object> l = new LinkedList<>();
+
+        set.add(1);
+        set.add("dfsdf");
+        set.add(2);
+
+        set.size();
+
+        System.out.println(set.size());
 
 
-        classA.increase(5);
-        int result = classA.getA();
+        l.add(1);
+        l.add(2);
+        l.add(1);
 
-
-        System.out.println("Result: " + result);
+        System.out.println(l.size());
 
 
   /*    List<Class<?>> buildings_classes = ClassFinder.find("ua.golovchenko.artem.strategy.model.buildings");

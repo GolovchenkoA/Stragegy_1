@@ -56,7 +56,7 @@ public class Menu{
                     //!!!!!!!!!!!!!!!!! дописать просмотр инфы о клетке
                     System.out.println("Доступные здания: ");
 
-                    Castle.getAllBuildingsName();
+                    Castle.getAvailableBuildingsName();
 
                     break;
                 case "n": break;

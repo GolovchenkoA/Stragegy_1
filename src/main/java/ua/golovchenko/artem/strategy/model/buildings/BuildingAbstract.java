@@ -23,12 +23,23 @@ public abstract class BuildingAbstract implements Building{
     private int speedOfConstruction_minutes; // время постройки в минутах
     private boolean  buildingConstructed = false;
     private int maxUnitsInBuilding;
-    private int totalUnitsinBuilding;
+    private int totalUnitsinBuilding = 0;
     private List<Unit> units = new ArrayList<>(); // пользователи в замке
 
 
-
     public BuildingAbstract() {};
+
+    public BuildingAbstract(String name, BuildingsType type, int cost, int speedOfConstruction_minutes, boolean buildingConstructed, int maxUnitsInBuilding, int totalUnitsinBuilding, List<Unit> units) {
+        this.name = name;
+        this.type = type;
+        this.cost = cost;
+        this.speedOfConstruction_minutes = speedOfConstruction_minutes;
+        this.buildingConstructed = buildingConstructed;
+        this.maxUnitsInBuilding = maxUnitsInBuilding;
+        this.totalUnitsinBuilding = totalUnitsinBuilding;
+        this.units = units;
+    }
+
 
     public Long getId() {
         return id;

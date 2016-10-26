@@ -5,18 +5,20 @@ import ua.golovchenko.artem.strategy.model.buildings.House;
 import ua.golovchenko.artem.strategy.model.buildings.RealBuilding;
 import ua.golovchenko.artem.util.ClassFinder;
 
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * Created by art on 14.10.2016.
  */
 public class Castle {
 
+
     private static GameField gameField = new GameFieldReal();
     private static final int DEFAULT_GOLD_PER_MINUTE = 10;
-    private static Map<String,Building> allBuildings = new TreeMap<>(); // Небезопасно ставить ? но с ограничением по extend Building не получилось
+
+    // Список задний доступных для постройки
+    private static Set<Building> availableBuildings = new HashSet<>(); // Небезопасно ставить ? но с ограничением по extend Building не получилось
+
 
    static {
 
@@ -37,10 +39,33 @@ public class Castle {
                 } catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
-                allBuildings.put(building.getSimpleName(), b); // добавляем объект класса в массив
+                availableBuildings.add(b); // добавляем объект класса в массив
             }
         }
     }
+
+
+    public static void getAvailableBuildingsName(){
+            int i = 0;
+        // Получаем список имен (имен классов) всех зданий
+        for(Building build : availableBuildings){
+            System.out.println(++i +". " + build.getName());
+
+        }
+    }
+
+    public static Set<Building> getAvailableBuildings(){
+        return availableBuildings;
+    }
+
+    public static CastleCell getCell(int i){
+        return gameField.getCell(i);
+    }
+    public static List<CastleCell> getCells(){
+        return gameField.getCells();
+    }
+
+
 
 
     private Long id;
@@ -51,12 +76,9 @@ public class Castle {
     private int Humans; //количество людей
 
 
-    public Castle(){};
 
-    public Castle(String name, Long userId) {
-        this.name = name;
-        this.userId = userId;
-    }
+
+
 
     public Long getId() {
         return id;
@@ -140,21 +162,12 @@ public class Castle {
         Humans = humans;
     }
 
-    public static Map<String, Building> getAllBuildings() {
-        return allBuildings;
-    }
 
-    public static void getAllBuildingsName(){
+    public Castle(){};
 
-        // Получаем список имен (имен классов) всех зданий
-        for(Map.Entry<String, Building> build : allBuildings.entrySet()){
-            System.out.println(build.getValue().getName());
-
-        }
-    }
-
-    public static CastleCell getCell(int i){
-        return gameField.getCell(i);
+    public Castle(String name, Long userId) {
+        this.name = name;
+        this.userId = userId;
     }
 
 }
