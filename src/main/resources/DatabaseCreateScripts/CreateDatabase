@@ -1,0 +1,40 @@
+CREATE SCHEMA `strategy_1` ;
+
+/*
+Таблица пользователя
+*/
+
+
+CREATE TABLE `strategy_1`.`users` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `login` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  UNIQUE INDEX `login_UNIQUE` (`login` ASC));
+
+/*ALTER TABLE `strategy_1`.`users`
+ADD COLUMN `CastleId` VARCHAR(45) NOT NULL AFTER `password`,
+ADD UNIQUE INDEX `CastleId_UNIQUE` (`CastleId` ASC);*/
+
+
+/*
+Таблица Замка
+*/
+
+CREATE TABLE `strategy_1`.`castles` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NULL,
+  `UserId` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  UNIQUE INDEX `UserId_UNIQUE` (`UserId` ASC));
+
+
+  ALTER TABLE `strategy_1`.`castles`
+ADD CONSTRAINT `FK_UserID`
+  FOREIGN KEY (`UserId`)
+  REFERENCES `strategy_1`.`users` (`id`)
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
