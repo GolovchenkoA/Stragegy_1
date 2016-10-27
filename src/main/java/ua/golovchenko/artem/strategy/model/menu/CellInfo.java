@@ -22,8 +22,8 @@ public class CellInfo extends MenuItem implements Command {
 
 
 
-    public CellInfo(String name, String description) {
-        super(name, description);
+    public CellInfo() {
+        super("Cell info","get info about cell");
     }
 
 /*    public CastleCell getCastleCell() {
@@ -38,7 +38,7 @@ public class CellInfo extends MenuItem implements Command {
 
     @Override
     public void execute() {
-
+        boolean input_matcher;
         System.out.println("Введите номер ячейки: ");
 
 /*        // Вывести информацию о всех ячейках
@@ -46,17 +46,21 @@ public class CellInfo extends MenuItem implements Command {
             System.out.println(cell.toString());
         }*/
 
-        selection = console_input.next();
-        numberMatcher = p.matcher(selection);
+        do{
+            selection = console_input.next();
+            numberMatcher = p.matcher(selection);
 
-        // Обработка информации которую ввел игрок. Информация о якейке
-        if (numberMatcher.matches() && GameFieldReal.TOTAL_CASTLE_CELLS >= Integer.parseInt(selection) - 1){
-            castleCell = Castle.getCell(Integer.parseInt(selection)-1);
-            System.out.println(castleCell.toString());
-        } else {
-            int total_cells = GameFieldReal.TOTAL_CASTLE_CELLS + 1;
-            System.out.println("Введите номер ячейки с 1 по " + total_cells);
-        }
+
+            // Обработка информации которую ввел игрок. Информация о якейке
+            input_matcher = numberMatcher.matches() && GameFieldReal.TOTAL_CASTLE_CELLS >= Integer.parseInt(selection) - 1;
+            if (input_matcher){
+                castleCell = Castle.getCell(Integer.parseInt(selection));
+                System.out.println(castleCell.toString());
+            } else {
+                int total_cells = GameFieldReal.TOTAL_CASTLE_CELLS + 1;
+                System.out.println("Введите номер ячейки с 1 по " + total_cells);
+            }
+        }while (!input_matcher);
 
     }
 }

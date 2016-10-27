@@ -57,10 +57,8 @@ public class CastleCell {
     public String toString() {
         String cell= "ID: " + getId() +
                 " Поле свободное:" + isFree() +
-                " Здание строитсяЖ " + isBuildingUnderConstruction +
+                " Здание строится: " + isBuildingUnderConstruction +
                 " Здание на этом поле: " + getBuildingOnCell();
-
-
         return cell;
     }
 }

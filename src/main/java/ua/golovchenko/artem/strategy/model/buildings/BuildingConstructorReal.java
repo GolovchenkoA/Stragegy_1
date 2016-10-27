@@ -2,6 +2,7 @@ package ua.golovchenko.artem.strategy.model.buildings;
 
 import ua.golovchenko.artem.strategy.model.Castle;
 import ua.golovchenko.artem.strategy.model.CastleCell;
+import ua.golovchenko.artem.strategy.model.resources.ResourcesObservable;
 
 /**
  * Created by art on 26.10.2016.
@@ -41,16 +42,38 @@ public class BuildingConstructorReal extends BuildingConstructorAbstract impleme
 
                 // / Запускаем строительство в отдельном потоке
                 Runnable task = () -> {
+
+                    // Действия перед постройкой
+                    if(building instanceof GoldMine){
+                        ((ResourcesObservable)building).registerObserver(castle);
+                    }
+
+
+                    // Постройка здания
                     castleCell.setBuildingOnCell(building);
 
                     Long constructionTime = (long) building.getSpeedOfConstruction_minutes() * 60000;
+
+
                     try {
+
                         Thread.sleep(constructionTime);
                         castleCell.setBuildingUnderConstruction(false);
+
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                         castleCell.setBuildingUnderConstruction(false);
                     }
+
+                    // Действия псле постройки здания
+                    try{
+                        ((ResourcesObservable)building).notifyObservers();
+                    }catch (Exception e){
+
+                        System.out.format("Здание %s не реализует интерфейс ResourcesObservable ",building.getName());
+                    }
+
+
                 };
 
                 Thread t = new Thread(task);

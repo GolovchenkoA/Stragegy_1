@@ -50,27 +50,30 @@ public class CreateBuildingOnCell extends MenuItem implements Command{
         numberMatcher2 = p.matcher(input_building_number);
 
         boolean input_digitals = numberMatcher.matches() && numberMatcher2.matches();
-        boolean input_digitals_in_rage = (buildings.size() >= Integer.parseInt(input_cell_number) - 1 ) && (castleCells.size() >= Integer.parseInt(input_building_number) - 1 );
-        String message;
+        //  BUG был boolean input_digitals_in_rage = (buildings.size() >= Integer.parseInt(input_cell_number) -1) && (castleCells.size() >= Integer.parseInt(input_building_number) - 1 );
+        boolean input_digitals_in_rage = (buildings.size() >= Integer.parseInt(input_building_number)) && (castleCells.size() >= Integer.parseInt(input_cell_number));
+        String message = "";
 
         // Сообщение о том что неправильно ввели данные
         if (!input_digitals) {
             message = "Введенное значение не правильно (не числа). ";
-            if (!input_digitals_in_rage){
-                message.concat("Введен недопустимый диапозон значений (ячейка и здание)");
-            }
-            System.out.println(message);
+        }
+        if (!input_digitals_in_rage){
+            message.concat("Введен недопустимый диапозон значений (ячейка и здание)");
+        }
 
-        }else if (input_digitals && input_digitals_in_rage){ // Если введены правильные значения
+        System.out.println(message);
 
-            castleCell = castleCells.get(Integer.parseInt(input_cell_number));
-            building = buildings.get(Integer.parseInt(input_building_number));
+        // Если введены правильные значения
+        if (input_digitals && input_digitals_in_rage){
+
+            castleCell = castleCells.get(Integer.parseInt(input_cell_number)-1); // число должно быть меньше на 1 от размера массива (size)
+            building = buildings.get(Integer.parseInt(input_building_number)-1);
             boolean result = buildingConstructor.beginConstruction(building,castleCell);
 
             System.out.format("Начато строительство здания: %s на клетке: %d . Подтверждение %b \n", building.getName(),castleCell.getId(), result);
 
         }
-
 
     }
 }

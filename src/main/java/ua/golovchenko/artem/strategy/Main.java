@@ -142,7 +142,8 @@ public class Main {
             MenuComponent mainMenu = new Menu("Main menu", "");
             MenuComponent cellMenu = new Menu("Cell Menu", "Action with cells");
 
-            cellMenu.add(new CellInfo("Cell info","get info about cell"));
+            cellMenu.add(new CellInfo());
+            cellMenu.add(new CellInfoAll());
             cellMenu.add(new CreateBuildingOnCell("Create Building","Create building on current cell"));
 
             mainMenu.add(cellMenu);
@@ -155,7 +156,7 @@ public class Main {
             //Gold gold = new Gold();
             //castle.addGold(gold.getAmount());
 
-            CastleInfo castleInfoPanel = new CastleInfoMain(castle.getGold()); //Панель с информацией
+            CastleInfo castleInfoPanel = new CastleInfoMain(); //Панель с информацией
             GameDisplay gameDisplayWindows = new GameDisplayMain(castleInfoPanel,gameMenu);
 
 
@@ -163,7 +164,6 @@ public class Main {
 
 
              // -----------------Запуск процессов по управлению ресурсами замка
-
                   Thread resource_manager_thread = new ResourceManager(castle);
                    //resource_manager_thread.start();
                 //-----------------------------------------------------------

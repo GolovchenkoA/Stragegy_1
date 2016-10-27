@@ -1,9 +1,13 @@
 package ua.golovchenko.artem.strategy.model;
 
 import ua.golovchenko.artem.strategy.model.buildings.Building;
+import ua.golovchenko.artem.strategy.model.buildings.GoldMine;
 import ua.golovchenko.artem.strategy.model.buildings.House;
 import ua.golovchenko.artem.strategy.model.buildings.RealBuilding;
 import ua.golovchenko.artem.strategy.model.resources.Gold;
+import ua.golovchenko.artem.strategy.model.resources.ResourceAbstract;
+import ua.golovchenko.artem.strategy.model.resources.ResourceObserver;
+import ua.golovchenko.artem.strategy.model.resources.ResourcesObservable;
 import ua.golovchenko.artem.util.ClassFinder;
 
 import java.util.HashSet;
@@ -13,11 +17,12 @@ import java.util.Set;
 /**
  * Created by art on 14.10.2016.
  */
-public class Castle {
+public class Castle implements ResourceObserver {
 
     private static Castle instance;
     private static GameField gameField = new GameFieldReal();
     private static final Long DEFAULT_GOLD_PER_MINUTE = 10L;
+    private Long goldPerMinute = DEFAULT_GOLD_PER_MINUTE; // по умолчанию. далее значение будет изменяться(например постройка зданий)
 
     // Список задний доступных для постройки
     private static Set<Building> availableBuildings = new HashSet<>(); // Небезопасно ставить ? но с ограничением по extend Building не получилось
@@ -75,11 +80,14 @@ public class Castle {
     private String name;
     private Long userId;
     private Gold goldInCastle  = new Gold();// Всего золота у пользователя, которое можно использовать
-    private int Humans; //количество людей
+    private int humans; //количество людей
 
 
 
-    private Castle(){};
+    private Castle(){
+
+        goldInCastle.setAmount(10L);
+    };
 
 /*    public Castle(String name, Long userId) {
         this.name = name;
@@ -118,8 +126,10 @@ public class Castle {
     }
 
     public Long getTotalGoldPerMinute() {
-        return DEFAULT_GOLD_PER_MINUTE;
+        return goldPerMinute;
     }
+
+    private void addTotalGoldPerMinute(Long amount){goldPerMinute += amount;}
 
     public Long getTotalGold() {
         return goldInCastle.getAmount();
@@ -159,7 +169,7 @@ public class Castle {
      *          Данный параметр генерируется перебором всех клеток. и если в клетке есть постройка "House"
      *          берется значение параметра
      */
-    public int getHumans() {
+    public int getFreeHumans() {
 
         int totalHumansOnCastle = 0;
 
@@ -172,10 +182,26 @@ public class Castle {
     }
 
     public void setHumans(int humans) {
-        Humans = humans;
+        humans = humans;
     }
 
 
+    public int getFreeCellsCount(){
+        int i = 0;
+        for(CastleCell castleCell : gameField.getCells()){
+            if(castleCell.isFree()){
+                i++;
+            }
+        }
+        return  i;
+    }
 
 
+    @Override
+    public void update(ResourcesObservable o, ResourceAbstract.ResourcesType type) {
+        if(o instanceof GoldMine){
+            long i = ((GoldMine) o).getResourceGrowth();
+            addTotalGoldPerMinute(i);
+        }
+    }
 }

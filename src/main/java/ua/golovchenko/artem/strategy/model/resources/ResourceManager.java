@@ -21,7 +21,7 @@ public class ResourceManager extends Thread {
 
         do{
             try {
-                this.sleep(5000); // 1 минута
+                this.sleep(60000); // 1 минута
             } catch (InterruptedException e) {
                 e.printStackTrace();
                 System.out.println("Ошибка в потоке Resource Manager");

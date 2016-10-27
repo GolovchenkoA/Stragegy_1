@@ -27,4 +27,5 @@ public interface Building {
     public boolean isBuildingConstructed();
 
     public void setBuildingConstructed(boolean buildingConstructed);
+
 }

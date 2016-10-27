@@ -1,6 +1,6 @@
 package ua.golovchenko.artem.strategy.model.menu;
 
-import ua.golovchenko.artem.strategy.model.resources.Gold;
+import ua.golovchenko.artem.strategy.model.Castle;
 
 /**
  * Created by art on 25.10.2016.
@@ -8,13 +8,18 @@ import ua.golovchenko.artem.strategy.model.resources.Gold;
 public class CastleInfoMain implements CastleInfo {
 
     //private ResourcesObservable resourcesObservable;
-    private Gold gold;
+    Castle castle = Castle.getInstance();
+
+/*    private Gold gold;
 
     public CastleInfoMain(Gold gold) {
         this.gold = gold;
-    }
+    }*/
+
 
     public void viewInfo(){
-        System.out.format("Доступные ресурсы: Gold: %d", gold.getAmount() );
+        System.out.format("Доступные ресурсы: Gold: %d Прирост золота (мин.): %d Свободно клеток: %d",
+                castle.getTotalGold(), castle.getTotalGoldPerMinute(), castle.getFreeCellsCount());
     }
+
 }

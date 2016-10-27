@@ -1,5 +1,8 @@
 package ua.golovchenko.artem.TestCollections;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by art on 17.10.2016.
  */
@@ -8,7 +11,14 @@ public class MainTest extends Thread{
 
     public static void main(String[] args) throws InterruptedException {
 
-        Runnable task = () -> {
+
+        List<Integer> l = new ArrayList<>();
+        l.add(1);
+        l.add(2);
+        l.add(3);
+
+        System.out.println(l.get(2));
+        /*Runnable task = () -> {
             String threadName = Thread.currentThread().getName();
             System.out.println("Hello " + threadName);
         };
@@ -18,7 +28,7 @@ public class MainTest extends Thread{
         Thread thread = new Thread(task);
         thread.start();
 
-        System.out.println("Done!");
+        System.out.println("Done!");*/
 
 
   /*    List<Class<?>> buildings_classes = ClassFinder.find("ua.golovchenko.artem.strategy.model.buildings");
