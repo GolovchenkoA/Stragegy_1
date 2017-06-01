@@ -1,0 +1,17 @@
+
+
+
+UPDATES:
+
+2017.05.31
+Added color output to the console
+
+
+FIXES:
+
+
+ISSUES:
+
+ISSUE-20170531-1 [NOT FIXED] Error if create new acccount with same 'login' existing account
+
+Error: com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Duplicate entry 'user' for key 'login_UNIQUE'

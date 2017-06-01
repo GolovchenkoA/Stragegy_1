@@ -7,30 +7,32 @@ package ua.golovchenko.artem;
 import com.mysql.jdbc.Driver;
 //import org.postgresql.Driver;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class UtilityConnection {
 
     public static Connection createConnection() throws SQLException {
 
-        //Driver driver= new org.postgresql.Driver(); //postgresql
+        Properties props = new Properties();
         Driver driver = new com.mysql.jdbc.Driver(); //mysql
 
-        try {
-            //PostgreSQL Connect
-            //Class.forName("org.postgresql.Driver");
-            //return DriverManager.getConnection("jdbc:postgresql://10.47.90.137:5432/Golovchenko_bank", "bank", "bank");
+        try(InputStream in = UtilityConnection.class.getClassLoader().getResourceAsStream("jdbc.properties");) {
 
-            //MySQL Connect
-            Class.forName("com.mysql.jdbc.Driver");
-            return DriverManager.getConnection("jdbc:mysql://localhost:3306/Strategy_1", "root", "Fzy84C");
+            props.load(in);
+            Class.forName(props.getProperty("jdbc.driver"));
 
-        } catch (SQLException e) {
+            return DriverManager.getConnection(props.getProperty("jdbc.url"),
+                    props.getProperty("jdbc.username"),
+                    props.getProperty("jdbc.password"));
+
+        } catch (IOException | ClassNotFoundException | SQLException e) {
             System.out.println("Cannot connect to database");
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         return null;

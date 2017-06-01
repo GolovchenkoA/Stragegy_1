@@ -23,7 +23,7 @@ public class GoldMine extends Industrial implements ResourcesObservable {
         super.setCost(10L);
         super.setName("Gold Mine");
         super.setMaxUnitsInBuilding(0);
-        super.setSpeedOfConstruction_minutes(0);
+        super.setSpeedOfConstruction_minutes(1);
     }
 
     @Override
@@ -64,7 +64,7 @@ public class GoldMine extends Industrial implements ResourcesObservable {
 
     }
 
-    @Override
+    //@Override
     public void notifyObservers() {
         for(ResourceObserver observer: observers){
             observer.update(this, ResourceAbstract.ResourcesType.GOLD);
@@ -75,4 +75,6 @@ public class GoldMine extends Industrial implements ResourcesObservable {
     public int getResourceGrowth() {
         return resourceGrowth;
     }
+
+
 }

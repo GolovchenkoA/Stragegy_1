@@ -4,6 +4,7 @@ import ua.golovchenko.artem.UtilityConnection;
 import ua.golovchenko.artem.strategy.model.Castle;
 import ua.golovchenko.artem.strategy.model.User;
 
+import java.io.Serializable;
 import java.sql.*;
 
 /**
@@ -72,18 +73,20 @@ public class CastleDAOImpl implements CastleDAO {
             statement.setString(1, castleName);
             statement.setLong(2,userId);
 
+            //for debug
+            System.out.println("Отладка. User.DAOImpl.create Query : " + statement.toString());
+            // Созраняем учетную запись замка в БД
+            statement.executeUpdate();
+
             ResultSet resultSet = statement.getGeneratedKeys();
             if (resultSet != null && resultSet.next()) {
                 castleID = resultSet.getLong(1);
             }
 
-            //for debug
-            System.out.println("User.DAOImpl.create Query : " + statement.toString());
-            // Созраняем учетную запись замка в БД
-            statement.executeUpdate();
 
             CastleDAO castleDAO = new CastleDAOImpl();
             new_castle = castleDAO.get(castleID);
+            Long castle_id = new_castle.getId();
 
         }catch (SQLException e){
             System.out.println("Ошибка создания замка");
@@ -105,4 +108,5 @@ public class CastleDAOImpl implements CastleDAO {
 
         return castle;
     }
+
 }

@@ -10,6 +10,7 @@ import ua.golovchenko.artem.strategy.model.resources.ResourceObserver;
 import ua.golovchenko.artem.strategy.model.resources.ResourcesObservable;
 import ua.golovchenko.artem.util.ClassFinder;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -32,9 +33,16 @@ public class Castle implements ResourceObserver {
 
         // ИНИЦИАЛИЗАЦИЯ МАССИВА ДОСТУПНЫХ ЗДАНИЙ
         // получение списка всех классов зданий
-        List<Class<?>> buildings_classes = ClassFinder.find("ua.golovchenko.artem.strategy.model.buildings");
+       List<Class<?>> buildings_classes = null;
+       try {
+           buildings_classes = ClassFinder.find("ua.golovchenko.artem.strategy.model.buildings");
+       } catch (IOException | ClassNotFoundException e) {
+           e.printStackTrace();
+           //throw new IOException("ClassFinder cant find classes in package ua.golovchenko.artem.strategy.model.buildings");
+           System.exit(0);
+       }
 
-        for(Class building : buildings_classes) {
+       for(Class building : buildings_classes) {
 
             //if (!Modifier.isAbstract(building.getModifiers()) && !building.getSimpleName().equals("BuildingsType")) { // если класс не абстрактный
             if (building.isAnnotationPresent(RealBuilding.class)){

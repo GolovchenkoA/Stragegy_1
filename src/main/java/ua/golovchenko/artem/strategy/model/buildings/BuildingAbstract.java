@@ -8,13 +8,18 @@ import java.util.List;
 /**
  * Created by art on 14.10.2016.
  * Класс здания. с минимальнымы требованиями
+ *
  */
+
+
+
 public abstract class BuildingAbstract implements Building{
 
     public enum BuildingsType {
 
         MILITARY,DECORATION,CIVIL,INDUSTRIAL;
     }
+
 
     private Long id;
     private String name;
@@ -28,6 +33,7 @@ public abstract class BuildingAbstract implements Building{
 
 
     public BuildingAbstract() {};
+
 
     public BuildingAbstract(String name, BuildingsType type, Long cost, int speedOfConstruction_minutes, boolean buildingConstructed, int maxUnitsInBuilding, int totalUnitsinBuilding, List<Unit> units) {
         this.name = name;

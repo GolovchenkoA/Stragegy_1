@@ -1,0 +1,19 @@
+
+Run the command to create the jar-file, including the jdbc-driver:
+
+mvn compile assembly:single
+
+
+
+Addition information
+
+1. You should add file \src\main\resources\jdbc.properties
+File Example:
+
+jdbc.driver=com.mysql.jdbc.Driver
+jdbc.url=jdbc:mysql://localhost:3306/YourDatabaseName?characterEncoding=utf8
+jdbc.username=db_user
+jdbc.password=db_password
+
+
+2. You should create database. Path to scripts \src\main\resources\DatabaseCreateScripts\CreateDatabase

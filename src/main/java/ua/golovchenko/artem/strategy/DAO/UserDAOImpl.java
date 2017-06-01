@@ -113,14 +113,13 @@ public class UserDAOImpl implements UserDAO {
                 System.out.println("Пользователь не получен из БД (но он там может быть)");
             }*/
 
-
+            System.out.println("Учетная запись пользователя создана");
 
         } catch (SQLException e) {
             System.out.println("Ошибка создания учетной записи пользователя");
             e.printStackTrace();
         }
 
-        System.out.println("Учетная запись пользователя создана");
         return new_user;
     }
 

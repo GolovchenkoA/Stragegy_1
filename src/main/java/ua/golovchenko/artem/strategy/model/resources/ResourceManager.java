@@ -13,7 +13,7 @@ public class ResourceManager extends Thread {
     public ResourceManager(Castle castle){
         this.castle = castle;
         this.setName("Resource Manager");
-        System.out.println("Resource Manager Thread Start");
+        //System.out.println("Отладка. Resource Manager Thread Start");
         start();
     }
 

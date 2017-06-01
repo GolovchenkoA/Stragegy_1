@@ -14,8 +14,13 @@ public abstract class ResourceAbstract implements Resource,ResourcesObservable {
     protected ResourcesType resourceType;
     List<ResourceObserver> resourceObservers = new LinkedList<>();
 
+    /**
+     *  ResourceType - resources that building can generate
+     *  resource NOTHING - Does not generate anything
+     */
+
     public enum ResourcesType{
-        GOLD,MONEY;
+        GOLD,MONEY,NOTHING;
     }
 
 /*    java.util.Date utilDate = new java.util.Date();

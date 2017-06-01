@@ -1,5 +1,7 @@
 package ua.golovchenko.artem.strategy.model.menu;
 
+import org.fusesource.jansi.Ansi;
+import org.fusesource.jansi.AnsiConsole;
 import ua.golovchenko.artem.strategy.model.Castle;
 import ua.golovchenko.artem.strategy.model.CastleCell;
 import ua.golovchenko.artem.strategy.model.buildings.Building;
@@ -36,10 +38,20 @@ public class CreateBuildingOnCell extends MenuItem implements Command{
     public void execute() {
         int i = 0;
 
+        String building_name;
+        int speedOfConstruction;
+        double cost;
 
           System.out.println("Доступные задния: ");
             for(Building build : buildings){
-            System.out.println(++i +". " + build.getName());
+
+                building_name = build.getName();
+                speedOfConstruction = build.getSpeedOfConstruction_minutes();
+                cost = build.getCost();
+            System.out.println(++i +". "
+                    + building_name
+                    + " Cost: " + cost
+                    + " Construcrion time : " + speedOfConstruction +  " (min.)");
         }
 
         System.out.println("ПОСТРОЙКА ЗДАНИЯ. \n Введите номер клетки, а потом номер здания: ");
@@ -71,7 +83,9 @@ public class CreateBuildingOnCell extends MenuItem implements Command{
             building = buildings.get(Integer.parseInt(input_building_number)-1);
             boolean result = buildingConstructor.beginConstruction(building,castleCell);
 
-            System.out.format("Начато строительство здания: %s на клетке: %d . Подтверждение %b \n", building.getName(),castleCell.getId(), result);
+            System.out.println("\033[32m Начато строительство здания: "+ building.getName() +" на клетке: "+ (castleCell.getId() + 1)  +" . Подтверждение "+ result + " \n");
+            AnsiConsole.out().print(Ansi.ansi().reset().fg(Ansi.Color.WHITE));
+            //System.out.format("Начато строительство здания: %s на клетке: %d . Подтверждение %b \n", building.getName(),castleCell.getId(), result);
 
         }
 

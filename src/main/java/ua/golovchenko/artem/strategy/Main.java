@@ -1,5 +1,6 @@
 package ua.golovchenko.artem.strategy;
 
+import org.fusesource.jansi.Ansi;
 import ua.golovchenko.artem.strategy.DAO.CastleDAO;
 import ua.golovchenko.artem.strategy.DAO.CastleDAOImpl;
 import ua.golovchenko.artem.strategy.DAO.UserDAO;
@@ -20,11 +21,15 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.fusesource.jansi.AnsiConsole;
+import static org.fusesource.jansi.Ansi.Color.*;
+
 public class Main {
 
     public static boolean theGameContinues = true;
 
     public static void main(String[] args) {
+
 
         Console console = null;
         User user = null;
@@ -38,8 +43,10 @@ public class Main {
         String password;
         String castle_name;
 
+        AnsiConsole.systemInstall();
+        System.out.println("\033[32m Game: Strategy");
+        AnsiConsole.out().print(Ansi.ansi().reset().fg(Ansi.Color.WHITE));
 
-        System.out.println("Game: Strategy");
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -48,19 +55,28 @@ public class Main {
                 System.out.println("Пожалуйста введите ваш логин и пароль");
 
 
-                //login = br.readLine();
-                //password = br.readLine();
-                System.out.println("пароль вводится автоматически \n");
-                login = "frenzy";
-                password = "Fzy84C";
-                System.out.println("------------------------");
+                login = br.readLine();
+                password = br.readLine();
+/*                System.out.println("Сейчас пароль вводится автоматически (user\\user) \n");
+                login = "user";
+                password = "user";
+                System.out.println("------------------------");*/
                 //System.out.format("Login : %s , Password : %s" ,login, password);
 
                 //Поиск пользователя в БД
                 user = userDAO.get(login,password);
 
-                //Информация о пользователе
-                if (user.getLogin().equals(login)){
+
+            String login_in_db;
+            try {
+                // if user doesn't exist in db - throw java.lang.NullPointerException
+                login_in_db = user.getLogin().toString();
+            } catch (java.lang.NullPointerException e){
+                login_in_db = null;
+            }
+
+            //Информация о пользователе
+                if (login_in_db != null && login_in_db.equals(login)){
 
                     castle = castleDAO.get(user);
 
@@ -86,14 +102,14 @@ public class Main {
                     try{
 
                         user = userDAO.create(user); ///  !!!!!!!!!!!!!!!!!!!ПРОБЛЕМА. Здесь при возврате объекта пользователя (если использовать обещго user) нет ИД пользователя
-                        System.out.println("UserDAOImpl получен пользователь из БД: " + user.toString());
+                        System.out.println("Отладка. UserDAOImpl получен пользователь из БД: " + user.toString());
                     }
                     catch (SQLException e){
                         e.printStackTrace();
                     }
 
                     // Создаем замок пользователя
-                    System.out.println("Пожалуйста введите ваше вашего замка");
+                    System.out.println("Пожалуйста введите имя вашего замка");
                     castle_name = br.readLine();
 
 

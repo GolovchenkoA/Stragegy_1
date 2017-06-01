@@ -55,7 +55,7 @@ public class CastleCell {
 
     @Override
     public String toString() {
-        String cell= "ID: " + getId() +
+        String cell= "ID: " + (getId() + 1) + // display cell number instead cell id (for humans)
                 " Поле свободное:" + isFree() +
                 " Здание строится: " + isBuildingUnderConstruction +
                 " Здание на этом поле: " + getBuildingOnCell();

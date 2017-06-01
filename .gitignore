@@ -1,0 +1,28 @@
+## Intellij IDEA
+.idea/
+
+## The file with this extension stores the core project information. In a multiproject setting, referenced subprojects are stored here
+*.ipr
+## File-based project format:
+*.iws
+
+# mpeltonen/sbt-idea plugin
+.idea_modules/
+
+
+### Intellij Patch ###
+# Comment Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-215987721
+*.iml
+# modules.xml
+
+#JDBC properties
+**/jdbc.properties
+**/jdbc-dev.properties
+
+#My public static void main  class for testing
+**/Go.java
+**/GoTest.java
+
+
+#My notes
+notes.txt
